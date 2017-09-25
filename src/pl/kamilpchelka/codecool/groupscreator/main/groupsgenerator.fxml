@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="18.0" prefWidth="414.0">
+         <children>
+            <ComboBox fx:id="ClassComboBox" prefWidth="150.0" promptText="Select a class" />
+            <ComboBox fx:id="ClassGroupComboBox" prefHeight="26.0" prefWidth="191.0" promptText="Select a class group" />
+            <ComboBox fx:id="GroupSizeComboBox" prefHeight="26.0" prefWidth="179.0" promptText="Select a group size" />
+         </children>
+      </HBox>
+      <HBox prefHeight="46.0" prefWidth="414.0" spacing="10.0">
+         <children>
+            <CheckBox mnemonicParsing="false" selected="true" text="Prevent duplications" />
+            <CheckBox layoutX="10.0" layoutY="10.0" mnemonicParsing="false" selected="true" text="Include Programming Level" />
+         </children>
+      </HBox>
+      <TableView fx:id="names" prefHeight="600.0" prefWidth="386.0" />
+      <ComboBox prefWidth="150.0" />
+   </children>
+   <opaqueInsets>
+      <Insets left="10.0" />
+   </opaqueInsets>
+</VBox>
