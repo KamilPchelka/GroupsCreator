@@ -1,6 +1,5 @@
 package pl.kamilpchelka.codecool.groupscreator.controllers;
 
-import com.sun.org.apache.bcel.internal.classfile.Code;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,7 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.util.Callback;
 import pl.kamilpchelka.codecool.groupscreator.entites.CodeCoolClass;
 import pl.kamilpchelka.codecool.groupscreator.entites.Student;
 import pl.kamilpchelka.codecool.groupscreator.enums.ClassGroup;
@@ -18,11 +16,13 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-    public static final int MINIMUM_GROUP_SIZE = 2;
-    public static final Integer MAXIMUM_GROUP_SIZE = 100;
+    private static final int MINIMUM_GROUP_SIZE = 2;
+    private static final Integer MAXIMUM_GROUP_SIZE = 100;
 
     @FXML
-    private ComboBox GroupSizeComboBox, ClassGroupComboBox;
+    private ComboBox<String> GroupSizeComboBox;
+    @FXML
+    private ComboBox<ClassGroup> ClassGroupComboBox;
 
     @FXML
     private ComboBox<CodeCoolClass> ClassComboBox;
@@ -54,13 +54,13 @@ public class Controller implements Initializable {
         names.setPlaceholder(new Label("Please select a class first"));
         ClassGroupComboBox.setOnAction(e -> {
 
-            ClassGroup classGroup = (ClassGroup) ClassGroupComboBox.getSelectionModel().getSelectedItem();
+            ClassGroup classGroup = ClassGroupComboBox.getSelectionModel().getSelectedItem();
             CodeCoolClass codeCoolClass = ClassComboBox.getSelectionModel().getSelectedItem();
             names.getItems().setAll(codeCoolClass.getStudentMap().get(classGroup));
 
         });
         ClassComboBox.setOnAction(e -> {
-            CodeCoolClass codeCoolClass = (CodeCoolClass) ClassComboBox.getSelectionModel().getSelectedItem();
+            CodeCoolClass codeCoolClass = ClassComboBox.getSelectionModel().getSelectedItem();
             names.setPlaceholder(new Label("Now select a class group"));
            if (ClassGroupComboBox.getItems().isEmpty())
                ClassGroupComboBox.getItems().addAll(codeCoolClass.getClassGroupsList());
