@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="499.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="18.0" prefWidth="414.0">
          <children>
@@ -16,14 +18,18 @@
             <ComboBox fx:id="GroupSizeComboBox" prefHeight="26.0" prefWidth="179.0" promptText="Select a group size" />
          </children>
       </HBox>
+      <TableView fx:id="names" prefHeight="600.0" prefWidth="386.0" />
       <HBox prefHeight="46.0" prefWidth="414.0" spacing="10.0">
          <children>
             <CheckBox mnemonicParsing="false" selected="true" text="Prevent duplications" />
             <CheckBox layoutX="10.0" layoutY="10.0" mnemonicParsing="false" selected="true" text="Include Programming Level" />
          </children>
       </HBox>
-      <TableView fx:id="names" prefHeight="600.0" prefWidth="386.0" />
-      <ComboBox prefWidth="150.0" />
+      <Button fx:id="generateButton" alignment="CENTER" contentDisplay="TOP" defaultButton="true" disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="739.0" text="Generate" textOverrun="CENTER_WORD_ELLIPSIS">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
    </children>
    <opaqueInsets>
       <Insets left="10.0" />

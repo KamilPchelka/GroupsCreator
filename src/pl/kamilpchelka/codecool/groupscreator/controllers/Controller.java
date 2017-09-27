@@ -31,6 +31,9 @@ public class Controller implements Initializable {
     private TableView names;
 
     @FXML
+    private Button generateButton;
+
+    @FXML
     public void initializeSelectClassComboBox(CodeCoolClass codeCoolClass) {
         ClassComboBox.getItems().add(codeCoolClass);
     }
@@ -67,7 +70,7 @@ public class Controller implements Initializable {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         TableColumn<Student, String> isStudentEnabledColumn = new TableColumn<>("Enabled");
-        isStudentEnabledColumn.setMinWidth(200);
+        isStudentEnabledColumn.setMinWidth(100);
         isStudentEnabledColumn.setCellValueFactory(new PropertyValueFactory<>("isEnabled"));
 
         TableColumn<Student, TextFieldTableCell> programmingLevelColumn = new TableColumn<>("Programming Level");
