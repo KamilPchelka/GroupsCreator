@@ -9,21 +9,23 @@
    <children>
       <HBox prefHeight="18.0" prefWidth="414.0">
          <children>
-            <ComboBox fx:id="classComboBox" prefWidth="150.0" promptText="Select a class"/>
-            <ComboBox fx:id="classGroupComboBox" prefHeight="26.0" prefWidth="191.0" promptText="Select a class group"/>
-            <ComboBox fx:id="groupSizeComboBox" prefHeight="26.0" prefWidth="179.0" promptText="Select a group size"/>
+             <ComboBox fx:id="classComboBox" prefWidth="150.0" promptText="Select a class"/>
+             <ComboBox fx:id="classGroupComboBox" prefHeight="26.0" prefWidth="191.0"
+                       promptText="Select a class group"/>
+             <ComboBox fx:id="groupSizeComboBox" prefHeight="26.0" prefWidth="179.0" promptText="Select a group size"/>
          </children>
       </HBox>
       <TableView fx:id="names" prefHeight="600.0" prefWidth="386.0" />
       <HBox prefHeight="46.0" prefWidth="414.0" spacing="10.0">
          <children>
-            <CheckBox mnemonicParsing="false" selected="true" text="Prevent duplications" />
-            <CheckBox layoutX="10.0" layoutY="10.0" mnemonicParsing="false" selected="true" text="Include Programming Level" />
+             <CheckBox fx:id="preventDuplications" mnemonicParsing="false" selected="true" text="Prevent duplications"/>
+             <CheckBox fx:id="includeProgrammingLevel" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                       selected="true" text="Include Programming Level"/>
          </children>
       </HBox>
-      <Button fx:id="generate" alignment="CENTER" contentDisplay="TOP" defaultButton="true" disable="true"
-              mnemonicParsing="false" prefHeight="26.0" prefWidth="739.0" text="Generate"
-              textOverrun="CENTER_WORD_ELLIPSIS">
+       <Button fx:id="generate" alignment="CENTER" contentDisplay="TOP" defaultButton="true" disable="true"
+               mnemonicParsing="false" prefHeight="26.0" prefWidth="739.0" text="Generate"
+               textOverrun="CENTER_WORD_ELLIPSIS">
          <font>
             <Font size="19.0" />
          </font>
