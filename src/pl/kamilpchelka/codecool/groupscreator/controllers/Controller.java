@@ -10,6 +10,9 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import pl.kamilpchelka.codecool.groupscreator.entites.CodeCoolClass;
 import pl.kamilpchelka.codecool.groupscreator.entites.Student;
 import pl.kamilpchelka.codecool.groupscreator.enums.ClassGroup;
+import pl.kamilpchelka.codecool.groupscreator.eventhandlers.ClassEventHandler;
+import pl.kamilpchelka.codecool.groupscreator.eventhandlers.ClassGroupEventHandler;
+import pl.kamilpchelka.codecool.groupscreator.eventhandlers.GenerateEventHandler;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,25 +20,39 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     private static final int MINIMUM_GROUP_SIZE = 2;
+
     private static final Integer MAXIMUM_GROUP_SIZE = 100;
 
+    private static Controller instance = null;
     @FXML
-    private ComboBox<String> GroupSizeComboBox;
-    @FXML
-    private ComboBox<ClassGroup> ClassGroupComboBox;
+    private ComboBox<String> groupSizeComboBox;
 
     @FXML
-    private ComboBox<CodeCoolClass> ClassComboBox;
+    private ComboBox<ClassGroup> classGroupComboBox;
+
+    @FXML
+    private ComboBox<CodeCoolClass> classComboBox;
 
     @FXML
     private TableView names;
 
     @FXML
-    private Button generateButton;
+    private Button generate;
+
+
+    protected Controller() {
+    }
+
+    public static Controller getInstance() {
+        if (instance == null) {
+            instance = new Controller();
+        }
+        return instance;
+    }
 
     @FXML
     public void initializeSelectClassComboBox(CodeCoolClass codeCoolClass) {
-        ClassComboBox.getItems().add(codeCoolClass);
+        classComboBox.getItems().add(codeCoolClass);
     }
 
     @FXML
@@ -44,27 +61,13 @@ public class Controller implements Initializable {
         for (int i = MINIMUM_GROUP_SIZE; i <= MAXIMUM_GROUP_SIZE; i++) {
             data.add(String.valueOf(i));
         }
-        GroupSizeComboBox.setItems(data);
+        groupSizeComboBox.setItems(data);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        initializeSelectGroupSizeComboBox();
+    @FXML
+    private void initializeNamesTableView() {
         names.setEditable(true);
         names.setPlaceholder(new Label("Please select a class first"));
-        ClassGroupComboBox.setOnAction(e -> {
-
-            ClassGroup classGroup = ClassGroupComboBox.getSelectionModel().getSelectedItem();
-            CodeCoolClass codeCoolClass = ClassComboBox.getSelectionModel().getSelectedItem();
-            names.getItems().setAll(codeCoolClass.getStudentMap().get(classGroup));
-
-        });
-        ClassComboBox.setOnAction(e -> {
-            CodeCoolClass codeCoolClass = ClassComboBox.getSelectionModel().getSelectedItem();
-            names.setPlaceholder(new Label("Now select a class group"));
-           if (ClassGroupComboBox.getItems().isEmpty())
-               ClassGroupComboBox.getItems().addAll(codeCoolClass.getClassGroupsList());
-        });
         TableColumn<Student, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setMinWidth(200);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -76,9 +79,38 @@ public class Controller implements Initializable {
         TableColumn<Student, TextFieldTableCell> programmingLevelColumn = new TableColumn<>("Programming Level");
         programmingLevelColumn.setMinWidth(200);
         programmingLevelColumn.setCellValueFactory(new PropertyValueFactory<>("programmingLevel"));
-
-
-
         names.getColumns().addAll(nameColumn, programmingLevelColumn, isStudentEnabledColumn);
+    }
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        initializeSelectGroupSizeComboBox();
+        initializeNamesTableView();
+        classGroupComboBox.setOnAction(new ClassGroupEventHandler()::handle);
+        classComboBox.setOnAction(new ClassEventHandler()::handle);
+        generate.setOnAction(new GenerateEventHandler()::handle);
+
+
+    }
+
+    public ComboBox getGroupSizeComboBox() {
+        return groupSizeComboBox;
+    }
+
+    public ComboBox<ClassGroup> getClassGroupComboBox() {
+        return classGroupComboBox;
+    }
+
+    public ComboBox<CodeCoolClass> getClassComboBox() {
+        return classComboBox;
+    }
+
+    public TableView getNames() {
+        return names;
+    }
+
+    public Button getGenerate() {
+        return generate;
     }
 }
