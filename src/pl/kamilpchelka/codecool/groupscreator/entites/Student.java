@@ -98,12 +98,29 @@ public class Student {
                     setProgrammingLevel("");
             if (oldValue)
                 if (fieldText.equals(""))
-                    setProgrammingLevel("NaN");
+                    setProgrammingLevel("0");
         });
     }
 
     private void initializeIsEnabledCheckBox() {
         this.isEnabled = new CheckBox();
         this.isEnabled.setSelected(true);
+    }
+
+    @Override
+    public String toString() {
+        return getName() + " " + getProgrammingLevelValue();
+    }
+
+    public boolean compare(Student student, String operator) {
+        int programmminglevel1 = Integer.valueOf(getProgrammingLevelValue());
+        int programmminglevel2 = Integer.valueOf(student.getProgrammingLevelValue());
+
+        if (programmminglevel1 == programmminglevel2 && operator.equalsIgnoreCase("==")) return true;
+        else if (programmminglevel1 > programmminglevel2 && operator.equalsIgnoreCase(">")) return true;
+        else if (programmminglevel1 < programmminglevel2 && operator.equalsIgnoreCase("<")) return true;
+
+        return false;
+
     }
 }
