@@ -13,6 +13,7 @@ import pl.kamilpchelka.codecool.groupscreator.enums.ClassGroup;
 import pl.kamilpchelka.codecool.groupscreator.eventhandlers.ClassEventHandler;
 import pl.kamilpchelka.codecool.groupscreator.eventhandlers.ClassGroupEventHandler;
 import pl.kamilpchelka.codecool.groupscreator.eventhandlers.GenerateEventHandler;
+import pl.kamilpchelka.codecool.groupscreator.eventhandlers.GroupSizeEventHandler;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,6 +26,7 @@ public class Controller implements Initializable {
 
     private static Controller instance = null;
     @FXML
+
     private ComboBox<String> groupSizeComboBox;
 
     @FXML
@@ -39,8 +41,12 @@ public class Controller implements Initializable {
     @FXML
     private Button generate;
 
+    @FXML
+    private CheckBox preventDuplications, includeProgrammingLevel;
+
 
     protected Controller() {
+
     }
 
     public static Controller getInstance() {
@@ -90,11 +96,12 @@ public class Controller implements Initializable {
         classGroupComboBox.setOnAction(new ClassGroupEventHandler()::handle);
         classComboBox.setOnAction(new ClassEventHandler()::handle);
         generate.setOnAction(new GenerateEventHandler()::handle);
+        groupSizeComboBox.setOnAction(new GroupSizeEventHandler()::handle);
 
 
     }
 
-    public ComboBox getGroupSizeComboBox() {
+    public ComboBox<? extends String> getGroupSizeComboBox() {
         return groupSizeComboBox;
     }
 
@@ -110,7 +117,17 @@ public class Controller implements Initializable {
         return names;
     }
 
+    public CheckBox getPreventDuplications() {
+        return preventDuplications;
+    }
+
+    public CheckBox getIncludeProgrammingLevel() {
+        return includeProgrammingLevel;
+    }
+
     public Button getGenerate() {
         return generate;
     }
+
+
 }
