@@ -79,7 +79,7 @@ public class GenerateEventHandler implements EventHandler {
                 stringBuilder.append("The following students are not assigned to groups:" + '\n');
                 stringBuilder.append(students.toString()).append('\n');
             } else {
-                stringBuilder.append(index).append(". ").append(students.toString()).append('\n');
+                stringBuilder.append(index + 1).append(". ").append(students.toString()).append('\n');
             }
         });
         alert.setContentText(stringBuilder.toString());
