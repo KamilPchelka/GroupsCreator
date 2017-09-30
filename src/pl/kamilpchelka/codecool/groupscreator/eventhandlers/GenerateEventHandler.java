@@ -37,16 +37,12 @@ public class GenerateEventHandler implements EventHandler {
                 List<Student> tempStudentList = new ArrayList<>(studentList);
                 if (includeProgrammingLevel) {
                     tempStudentList.clear();
-                    List<Student> equal = studentList.stream().filter(student1 ->
-                            student1.compare(student, "==")).collect(Collectors.toList());
-                    List<Student> greater = studentList.stream().filter(student1 ->
-                            student1.compare(student, ">")).collect(Collectors.toList());
-                    List<Student> less = studentList.stream().filter(student1 ->
-                            student1.compare(student, "<")).collect(Collectors.toList());
-
-                    if (!equal.isEmpty()) tempStudentList.addAll(equal);
-                    if (!less.isEmpty()) tempStudentList.addAll(less);
-                    if (!greater.isEmpty()) tempStudentList.addAll(greater);
+                    studentList.stream().filter(student1 -> Integer.valueOf(student.getProgrammingLevelValue())
+                            == Integer.valueOf(student1.getProgrammingLevelValue())).forEach(tempStudentList::add);
+                    studentList.stream().filter(student1 -> Integer.valueOf(student.getProgrammingLevelValue())
+                            > Integer.valueOf(student1.getProgrammingLevelValue())).forEach(tempStudentList::add);
+                    studentList.stream().filter(student1 -> Integer.valueOf(student.getProgrammingLevelValue())
+                            > Integer.valueOf(student1.getProgrammingLevelValue())).forEach(tempStudentList::add);
                 }
                 for (int j = 0; j < groupSize; j++) {
                     Student randomStudent = tempStudentList.get(0);
