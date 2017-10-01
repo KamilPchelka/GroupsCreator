@@ -18,14 +18,19 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathFactory;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class DataManager {
     private static final String DATA_FILE_PATH = "classes.xml";
     private static Document rootDocument;
+    private static List<String> previousGroupsList = new ArrayList<>();
+    private static File previousGroupsFile = new File("previousgroups.txt");
 
 
     public static void loadData(Controller controller) throws ParserConfigurationException, IOException, SAXException {
@@ -34,6 +39,7 @@ public class DataManager {
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         rootDocument = dBuilder.parse(xmlFile);
         loadCodeCoolClasses(controller);
+        loadPreviousGroupsCache();
 
     }
 
@@ -61,10 +67,28 @@ public class DataManager {
         }
     }
 
+    private static void loadPreviousGroupsCache() throws IOException {
+        previousGroupsFile.createNewFile();
+        try (Stream<String> lines = Files.lines(previousGroupsFile.toPath())) {
+            lines.map(s -> s = s.replace("\n", "")).forEach(previousGroupsList::add);
+            //previousGroupsList.forEach(System.out::println);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveGroupToCache(String group) {
+        try (FileWriter fileWriter = new FileWriter(previousGroupsFile, true)) {
+            fileWriter.write(group + '\n');
+            previousGroupsList.add(group);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public static void updateStudentData(Student student) {
         String studentName = student.getName();
-        String className = student.getClassName();
-        String classGroup = student.getClassGroup().toString();
         String programmingLevel = student.getProgrammingLevelValue();
         NodeList nodeList = rootDocument.getElementsByTagName("student");
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -80,5 +104,10 @@ public class DataManager {
             }
 
         }
+    }
+
+    public static boolean isNewGroupDuplicated(String group) {
+        return previousGroupsList.contains(group);
+
     }
 }
