@@ -9,10 +9,7 @@ import pl.kamilpchelka.codecool.groupscreator.entites.Student;
 import pl.kamilpchelka.codecool.groupscreator.enums.ClassGroup;
 import pl.kamilpchelka.codecool.groupscreator.utils.DataManager;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class GenerateEventHandler implements EventHandler {
@@ -35,15 +32,15 @@ public class GenerateEventHandler implements EventHandler {
         for (int i = 0; i < fullGroupNumber; i++) {
             Date d1 = new Date();
             while (true) {
-                if (duplication == true) return;
+                if (duplication) return;
                 List<Student> group = new ArrayList<>();
                 Collections.shuffle(studentList);
                 Student student = studentList.get(0);
                 List<Student> tempStudentList = new ArrayList<>(studentList);
                 if (includeProgrammingLevel) {
                     tempStudentList.clear();
-                    studentList.stream().filter(student1 -> Integer.valueOf(student.getProgrammingLevelValue())
-                            == Integer.valueOf(student1.getProgrammingLevelValue())).forEach(tempStudentList::add);
+                    studentList.stream().filter(student1 -> Objects.equals(Integer.valueOf(student.getProgrammingLevelValue()),
+                            Integer.valueOf(student1.getProgrammingLevelValue()))).forEach(tempStudentList::add);
                     studentList.stream().filter(student1 -> Integer.valueOf(student.getProgrammingLevelValue())
                             > Integer.valueOf(student1.getProgrammingLevelValue())).forEach(tempStudentList::add);
                     studentList.stream().filter(student1 -> Integer.valueOf(student.getProgrammingLevelValue())
@@ -69,15 +66,10 @@ public class GenerateEventHandler implements EventHandler {
                     DataManager.saveGroupToCache(group.toString());
                     break;
                 }
-
-
             }
         }
         if (studentsWithoutGroup != 0) groupsList.add(studentList);
         printResult(groupsList, studentsWithoutGroup);
-
-
-
     }
 
     private void printResult(List<List<Student>> groupsList, int studentsWithoutGroup) {
@@ -101,17 +93,16 @@ public class GenerateEventHandler implements EventHandler {
     }
 
     private void showCannotGenerateGroupError() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("The program used up of all posibilities to create unique groups").append('\n');
-        stringBuilder.append("You can do one of the following options to get rid off of this error:").append('\n');
-        stringBuilder.append("- unselect 'Prevent duplications' checbox").append('\n');
-        stringBuilder.append("- change 'GroupSize' option to another").append('\n');
-        stringBuilder.append("- purge or delete 'previousgroups.txt' file").append('\n');
-        stringBuilder.append("Hope it helped :)");
+        String contextText = "The program used up of all posibilities to create unique groups" + '\n' +
+                "You can do one of the following options to get rid off of this error:" + '\n' +
+                "- unselect 'Prevent duplications' checbox" + '\n' +
+                "- change 'GroupSize' option to another" + '\n' +
+                "- purge or delete 'previousgroups.txt' file" + '\n' +
+                "Hope it helped :)";
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Generating error");
         alert.setHeaderText("Cannot create unique groups!");
-        alert.setContentText(stringBuilder.toString());
+        alert.setContentText(contextText);
         alert.setResizable(true);
         alert.getDialogPane().setPrefSize(500, 300);
         alert.showAndWait();
