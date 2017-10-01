@@ -11,7 +11,7 @@ import pl.kamilpchelka.codecool.groupscreator.utils.DataManager;
 public class Main extends Application {
 
     private static final String WINDOW_TITLE = "Groups generator";
-    private static final boolean IS_WINDOW_RESIZABLE = false;
+    private static final boolean IS_WINDOW_RESIZABLE = true;
     private static final String DATA_FILE_PATH = "classes.xml";
     private static final String INTERFACE_DESIGN_PATH = "groupsgenerator.fxml";
 
