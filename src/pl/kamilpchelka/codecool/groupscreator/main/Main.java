@@ -17,6 +17,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        com.sun.org.apache.xml.internal.security.Init.init();
         FXMLLoader loader = new FXMLLoader(getClass().getResource(INTERFACE_DESIGN_PATH));
         Controller controller = Controller.getInstance();
         loader.setController(controller);

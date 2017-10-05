@@ -83,7 +83,11 @@ public class Student {
             if (!isNewProgrammingLevelPropertyCorrect(newValue))
                 setProgrammingLevel(oldValue);
             else if (!newValue.isEmpty() || !newValue.equalsIgnoreCase("NaN"))
-                DataManager.updateStudentData(this);
+                try {
+                    DataManager.updateStudentData(this);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             if (newValue.equalsIgnoreCase("NaN")) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText("Inappropriate programming level property");

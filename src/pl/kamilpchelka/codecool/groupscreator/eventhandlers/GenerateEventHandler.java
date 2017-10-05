@@ -59,11 +59,11 @@ public class GenerateEventHandler implements EventHandler {
                 if (DataManager.isNewGroupDuplicated(group.toString()) && preventDuplications) {
                     Date d2 = new Date();
                     long time_difference = d2.getTime() - d1.getTime();
-                    if (time_difference > 100) showCannotGenerateGroupError();
+                    if (time_difference > 1000) showCannotGenerateGroupError();
                 } else if (!groupsList.contains(group)) {
                     groupsList.add(group);
                     studentList.removeAll(group);
-                    DataManager.saveGroupToCache(group.toString());
+                    if (preventDuplications) DataManager.saveGroupToCache(group.toString());
                     break;
                 }
             }
@@ -93,7 +93,8 @@ public class GenerateEventHandler implements EventHandler {
     }
 
     private void showCannotGenerateGroupError() {
-        String contextText = "The program used up of all posibilities to create unique groups" + '\n' +
+        String contextText =
+                "The program used up of all posibilities to create unique groups" + '\n' +
                 "You can do one of the following options to get rid off of this error:" + '\n' +
                 "- unselect 'Prevent duplications' checbox" + '\n' +
                 "- change 'GroupSize' option to another" + '\n' +

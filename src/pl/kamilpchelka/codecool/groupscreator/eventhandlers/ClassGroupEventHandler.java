@@ -6,6 +6,8 @@ import pl.kamilpchelka.codecool.groupscreator.controllers.Controller;
 import pl.kamilpchelka.codecool.groupscreator.entites.CodeCoolClass;
 import pl.kamilpchelka.codecool.groupscreator.enums.ClassGroup;
 
+import java.util.Optional;
+
 public class ClassGroupEventHandler implements EventHandler {
 
 
@@ -16,12 +18,8 @@ public class ClassGroupEventHandler implements EventHandler {
         CodeCoolClass codeCoolClass = controller.getClassComboBox().getSelectionModel().getSelectedItem();
         controller.getNames().getItems().setAll(codeCoolClass.getStudentMap().get(classGroup));
         String selection = controller.getGroupSizeComboBox().getSelectionModel().getSelectedItem();
-        try {
-            if (!selection.equalsIgnoreCase("null")) controller.getGenerate().setDisable(false);
-
-        } catch (Exception e) {
-
-        }
+        Optional<String> optional = Optional.ofNullable(controller.getGroupSizeComboBox().getSelectionModel().getSelectedItem());
+        if (optional.isPresent()) controller.getGenerate().setDisable(false);
 
 
     }
