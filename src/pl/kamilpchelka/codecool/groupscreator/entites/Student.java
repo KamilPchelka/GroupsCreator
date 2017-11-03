@@ -9,13 +9,13 @@ import pl.kamilpchelka.codecool.groupscreator.utils.DataManager;
 
 public class Student {
 
-    String name;
-    String className;
+    private String name;
+    private String className;
 
 
-    ClassGroup classGroup;
-    TextField programmingLevel;
-    CheckBox isEnabled;
+    private ClassGroup classGroup;
+    private TextField programmingLevel;
+    private CheckBox isEnabled;
 
 
     public Student(String name, String programmingLevel, String className, ClassGroup classGroup) {
@@ -79,12 +79,11 @@ public class Student {
         this.programmingLevel.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!isNewProgrammingLevelPropertyCorrect(newValue))
                 setProgrammingLevel(oldValue);
-            else if (!newValue.isEmpty() || !newValue.equalsIgnoreCase("NaN"))
-                try {
-                    DataManager.updateStudentData(this);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            else try {
+                DataManager.updateStudentData(this);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             if (newValue.equalsIgnoreCase("NaN")) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText("Inappropriate programming level property");
@@ -113,15 +112,4 @@ public class Student {
         return getName() + " " + getProgrammingLevelValue();
     }
 
-    public boolean compare(Student student, String operator) {
-        int programmminglevel1 = Integer.valueOf(getProgrammingLevelValue());
-        int programmminglevel2 = Integer.valueOf(student.getProgrammingLevelValue());
-
-        if (programmminglevel1 == programmminglevel2 && operator.equalsIgnoreCase("==")) return true;
-        else if (programmminglevel1 > programmminglevel2 && operator.equalsIgnoreCase(">")) return true;
-        else if (programmminglevel1 < programmminglevel2 && operator.equalsIgnoreCase("<")) return true;
-
-        return false;
-
-    }
 }
