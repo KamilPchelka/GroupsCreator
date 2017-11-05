@@ -5,6 +5,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import pl.kamilpchelka.codecool.groupscreator.controllers.Controller;
 import pl.kamilpchelka.codecool.groupscreator.enums.ClassGroup;
+import pl.kamilpchelka.codecool.groupscreator.utils.DataManager;
 
 import java.util.*;
 
@@ -22,38 +23,15 @@ public class CodeCoolClass {
     //Collection that contains students sorted by class versions
     private Map<ClassGroup, ArrayList<Student>> studentMap = new HashMap<>();
 
-
-    public static String getStudentNameAttribute() {
-        return STUDENT_NAME_ATTRIBUTE;
-    }
-
-    public static String getStudentProgrammingLevelAttribute() {
-        return STUDENT_PROGRAMMING_LEVEL_ATTRIBUTE;
-    }
-
-    public static List<CodeCoolClass> getCodeCoolClassList() {
-        return CodeCoolClassList;
-    }
-
-    public static void setCodeCoolClassList(List<CodeCoolClass> codeCoolClassList) {
-        CodeCoolClassList = codeCoolClassList;
-    }
-
     public List<ClassGroup> getClassGroupsList() {
         return classGroupsList;
     }
 
-    public void setClassGroupsList(List<ClassGroup> classGroupsList) {
-        this.classGroupsList = classGroupsList;
-    }
 
     public Map<ClassGroup, ArrayList<Student>> getStudentMap() {
         return studentMap;
     }
 
-    public void setStudentMap(Map<ClassGroup, ArrayList<Student>> studentMap) {
-        this.studentMap = studentMap;
-    }
 
     public CodeCoolClass(String className, Controller controller, NodeList groups) {
         this.className = className;
@@ -72,7 +50,6 @@ public class CodeCoolClass {
                 for (int j = 0; j < studentNodesList.getLength(); j++) {
                     Node studentNode = studentNodesList.item(j);
                     if(studentNode.getNodeType() == Node.ELEMENT_NODE) {
-                        String studentNodeName = groupNode.getNodeName();
                         Student student = getStudentFromElement((Element) studentNode);
                         if(studentMap.containsKey(classGroup)){
                             ArrayList<Student> studentList = studentMap.get(classGroup);
@@ -90,17 +67,16 @@ public class CodeCoolClass {
     private Student getStudentFromElement(Element student) {
         String name = student.getAttribute(STUDENT_NAME_ATTRIBUTE);
         String programmingLevel = student.getAttribute(STUDENT_PROGRAMMING_LEVEL_ATTRIBUTE);
-        String className = student.getParentNode().getParentNode().getNodeName();
-        ClassGroup classGroup = ClassGroup.valueOf(student.getParentNode().getNodeName());
-        return(new Student(name, programmingLevel, className, classGroup));
+        //String className = student.getParentNode().getParentNode().getNodeName();
+        String isActive = student.getAttribute("isActive");
+        Student newStudent = new Student(name, programmingLevel, isActive);
+        if (isActive.isEmpty()) try {
+            DataManager.updateStudentData(newStudent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return (newStudent);
 
-    }
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
     }
 
     @Override

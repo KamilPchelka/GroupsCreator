@@ -95,11 +95,13 @@ public class DataManager {
     public static void updateStudentData(Student student) throws Exception {
         String studentName = student.getName();
         String programmingLevel = student.getProgrammingLevelValue();
+        String isActive = String.valueOf(student.isActive());
         NodeList nodeList = rootDocument.getElementsByTagName("student");
         for (int i = 0; i < nodeList.getLength(); i++) {
             Element studentElement = (Element) nodeList.item(i);
             if (studentElement.getAttribute("name").equalsIgnoreCase(studentName)) {
                 studentElement.setAttribute("programminglevel", programmingLevel);
+                studentElement.setAttribute("isActive", isActive);
                 saveData(null);
                 return;
             }
@@ -109,10 +111,6 @@ public class DataManager {
 
     public static Document getRootDocument() {
         return rootDocument;
-    }
-
-    public static void setRootDocument(Document rootDocument) {
-        DataManager.rootDocument = rootDocument;
     }
 
     public static boolean isNewGroupDuplicated(String group) {

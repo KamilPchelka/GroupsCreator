@@ -4,51 +4,36 @@ package pl.kamilpchelka.codecool.groupscreator.entites;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import pl.kamilpchelka.codecool.groupscreator.enums.ClassGroup;
 import pl.kamilpchelka.codecool.groupscreator.utils.DataManager;
 
 public class Student {
 
     private String name;
-    private String className;
+    private boolean isActive = true;
 
 
-    private ClassGroup classGroup;
     private TextField programmingLevel;
     private CheckBox isEnabled;
 
 
-    public Student(String name, String programmingLevel, String className, ClassGroup classGroup) {
+    public Student(String name, String programmingLevel, String isActive) {
         this.name = name;
-        this.className = className;
-        this.classGroup = classGroup;
+        this.isActive = true ? isActive.isEmpty() : Boolean.valueOf(isActive);
+        System.out.println(this.isActive);
         initializeProgrammingLevelTextField(programmingLevel);
         initializeIsEnabledCheckBox();
     }
 
-    public String getClassName() {
-        return className;
+    public boolean isActive() {
+        return isActive;
     }
-    
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public TextField getProgrammingLevel() {
         return programmingLevel;
-    }
-
-    public ClassGroup getClassGroup() {
-        return classGroup;
-    }
-
-    public void setClassGroup(ClassGroup classGroup) {
-        this.classGroup = classGroup;
     }
 
     public String getProgrammingLevelValue() {
