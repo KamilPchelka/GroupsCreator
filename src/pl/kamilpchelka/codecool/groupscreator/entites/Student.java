@@ -19,7 +19,6 @@ public class Student {
     public Student(String name, String programmingLevel, String isActive) {
         this.name = name;
         this.isActive = true ? isActive.isEmpty() : Boolean.valueOf(isActive);
-        System.out.println(this.isActive);
         initializeProgrammingLevelTextField(programmingLevel);
         initializeIsEnabledCheckBox();
     }
