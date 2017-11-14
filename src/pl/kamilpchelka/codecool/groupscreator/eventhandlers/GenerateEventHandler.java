@@ -7,6 +7,7 @@ import pl.kamilpchelka.codecool.groupscreator.controllers.Controller;
 import pl.kamilpchelka.codecool.groupscreator.entites.CodeCoolClass;
 import pl.kamilpchelka.codecool.groupscreator.entites.Student;
 import pl.kamilpchelka.codecool.groupscreator.enums.ClassGroup;
+import pl.kamilpchelka.codecool.groupscreator.utils.ClassGroupUtils;
 import pl.kamilpchelka.codecool.groupscreator.utils.DataManager;
 
 import java.util.*;
@@ -20,7 +21,7 @@ public class GenerateEventHandler implements EventHandler {
         Controller controller = Controller.getInstance();
         CodeCoolClass codeCoolClass = controller.getClassComboBox().getSelectionModel().getSelectedItem();
         ClassGroup classGroup = controller.getClassGroupComboBox().getSelectionModel().getSelectedItem();
-        List<Student> studentList = new ArrayList<>(codeCoolClass.getStudentMap().get(classGroup));
+        List<Student> studentList = new ArrayList<>(ClassGroupUtils.getActiveUsers());
         studentList = studentList.stream().filter(student -> student.getIsEnabled().isSelected()).collect(Collectors.toList());
         boolean includeProgrammingLevel = controller.getIncludeProgrammingLevel().isSelected();
         boolean preventDuplications = controller.getPreventDuplications().isSelected();

@@ -9,8 +9,24 @@
 <StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
            minWidth="-Infinity" prefHeight="705.0" prefWidth="499.0" xmlns="http://javafx.com/javafx/8.0.121">
     <children>
-        <VBox prefHeight="200.0" prefWidth="100.0">
+        <VBox prefHeight="668.0" prefWidth="499.0">
             <children>
+                <MenuBar>
+                    <menus>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem fx:id="startGroupEditorMenuItem" mnemonicParsing="false"
+                                          text="Edit selected group"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="About">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="License"/>
+                                <MenuItem mnemonicParsing="false" text="Author"/>
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
                 <HBox prefHeight="18.0" prefWidth="414.0">
                     <children>
                         <ComboBox fx:id="classComboBox" prefWidth="150.0" promptText="Select a class"/>

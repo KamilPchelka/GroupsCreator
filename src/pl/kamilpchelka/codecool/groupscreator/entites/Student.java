@@ -4,12 +4,13 @@ package pl.kamilpchelka.codecool.groupscreator.entites;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import pl.kamilpchelka.codecool.groupscreator.utils.DataManager;
 
 public class Student {
 
     private String name;
-    private boolean isActive = true;
+    public boolean isActive = true;
 
 
     private TextField programmingLevel;
@@ -18,17 +19,25 @@ public class Student {
 
     public Student(String name, String programmingLevel, String isActive) {
         this.name = name;
-        this.isActive = true ? isActive.isEmpty() : Boolean.valueOf(isActive);
+
+        if (isActive.isEmpty()) this.isActive = true;
+        else this.isActive = Boolean.parseBoolean(isActive);
         initializeProgrammingLevelTextField(programmingLevel);
         initializeIsEnabledCheckBox();
     }
 
-    public boolean isActive() {
+    public boolean getActive() {
         return isActive;
     }
 
-    public String getName() {
-        return name;
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public Text getName() {
+        Text text = new Text(name);
+        if (!isActive) text.setStrikethrough(true);
+        return text;
     }
 
     public TextField getProgrammingLevel() {
@@ -93,7 +102,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return getName() + " " + getProgrammingLevelValue();
+        return getName().getText() + " " + getProgrammingLevelValue();
     }
 
 }

@@ -93,13 +93,14 @@ public class DataManager {
 
 
     public static void updateStudentData(Student student) throws Exception {
-        String studentName = student.getName();
+        String studentName = student.getName().getText();
         String programmingLevel = student.getProgrammingLevelValue();
-        String isActive = String.valueOf(student.isActive());
+        String isActive = String.valueOf(student.getActive());
         NodeList nodeList = rootDocument.getElementsByTagName("student");
         for (int i = 0; i < nodeList.getLength(); i++) {
             Element studentElement = (Element) nodeList.item(i);
             if (studentElement.getAttribute("name").equalsIgnoreCase(studentName)) {
+                System.out.println(isActive);
                 studentElement.setAttribute("programminglevel", programmingLevel);
                 studentElement.setAttribute("isActive", isActive);
                 saveData(null);

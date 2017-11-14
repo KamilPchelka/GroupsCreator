@@ -67,7 +67,6 @@ public class CodeCoolClass {
     private Student getStudentFromElement(Element student) {
         String name = student.getAttribute(STUDENT_NAME_ATTRIBUTE);
         String programmingLevel = student.getAttribute(STUDENT_PROGRAMMING_LEVEL_ATTRIBUTE);
-        //String className = student.getParentNode().getParentNode().getNodeName();
         String isActive = student.getAttribute("isActive");
         Student newStudent = new Student(name, programmingLevel, isActive);
         if (isActive.isEmpty()) try {

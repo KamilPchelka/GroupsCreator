@@ -14,6 +14,7 @@ import pl.kamilpchelka.codecool.groupscreator.eventhandlers.ClassEventHandler;
 import pl.kamilpchelka.codecool.groupscreator.eventhandlers.ClassGroupEventHandler;
 import pl.kamilpchelka.codecool.groupscreator.eventhandlers.GenerateEventHandler;
 import pl.kamilpchelka.codecool.groupscreator.eventhandlers.GroupSizeEventHandler;
+import pl.kamilpchelka.codecool.groupscreator.views.GroupEditView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,8 +26,11 @@ public class Controller implements Initializable {
     private static final Integer MAXIMUM_GROUP_SIZE = 100;
 
     private static Controller instance = null;
-    @FXML
 
+    @FXML
+    private MenuItem startGroupEditorMenuItem;
+
+    @FXML
     private ComboBox<String> groupSizeComboBox;
 
     @FXML
@@ -97,6 +101,10 @@ public class Controller implements Initializable {
         classComboBox.setOnAction(new ClassEventHandler()::handle);
         generate.setOnAction(new GenerateEventHandler()::handle);
         groupSizeComboBox.setOnAction(new GroupSizeEventHandler()::handle);
+        startGroupEditorMenuItem.setOnAction(event -> {
+            new GroupEditView().run();
+
+        });
 
 
     }
