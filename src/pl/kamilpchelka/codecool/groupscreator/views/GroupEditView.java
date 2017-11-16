@@ -2,10 +2,7 @@ package pl.kamilpchelka.codecool.groupscreator.views;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseButton;
@@ -22,23 +19,11 @@ import pl.kamilpchelka.codecool.groupscreator.utils.DataManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupEditView implements Runnable {
-    /**
-     * When an object implementing interface <code>Runnable</code> is used
-     * to create a thread, starting the thread causes the object's
-     * <code>run</code> method to be called in that separately executing
-     * thread.
-     * <p>
-     * The general contract of the method <code>run</code> is that it may
-     * take any action whatsoever.
-     *
-     * @see Thread#run()
-     */
+public class GroupEditView {
+
     private List<ContextMenu> contextMenuArrayList = new ArrayList<>();
 
-    @Override
-    public void run() {
-
+    public void start() {
         Controller controller = Controller.getInstance();
         ClassGroup classGroup = controller.getClassGroupComboBox().getSelectionModel().getSelectedItem();
         CodeCoolClass codeCoolClass = controller.getClassComboBox().getSelectionModel().getSelectedItem();
@@ -78,8 +63,14 @@ public class GroupEditView implements Runnable {
                 contextMenu.show(table, event.getScreenX(), event.getScreenY());
             }
         });
+        try {
+            table.getItems().setAll(codeCoolClass.getStudentMap().get(classGroup));
 
-        table.getItems().setAll(codeCoolClass.getStudentMap().get(classGroup));
+        } catch (Exception e) {
+            new ErrorView(Alert.AlertType.ERROR, "First elect a group you'd like to modify !");
+            return;
+        }
+
 
 
         GridPane gridPane = new GridPane();

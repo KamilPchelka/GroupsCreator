@@ -100,7 +100,6 @@ public class DataManager {
         for (int i = 0; i < nodeList.getLength(); i++) {
             Element studentElement = (Element) nodeList.item(i);
             if (studentElement.getAttribute("name").equalsIgnoreCase(studentName)) {
-                System.out.println(isActive);
                 studentElement.setAttribute("programminglevel", programmingLevel);
                 studentElement.setAttribute("isActive", isActive);
                 saveData(null);

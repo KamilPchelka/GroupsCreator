@@ -102,7 +102,7 @@ public class Controller implements Initializable {
         generate.setOnAction(new GenerateEventHandler()::handle);
         groupSizeComboBox.setOnAction(new GroupSizeEventHandler()::handle);
         startGroupEditorMenuItem.setOnAction(event -> {
-            new GroupEditView().run();
+            new GroupEditView().start();
 
         });
 
